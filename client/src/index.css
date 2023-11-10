@@ -1,0 +1,35 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* font-family: 'Poppins', sans-serif; */
+
+/* NavBar css */
+.navbar{
+  font-family: 'Poppins', sans-serif; 
+  font-size: 17px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 6px -6px gray;
+  --webkit-box-shadow:0 8px 6px -6px gray;
+  border-bottom:0.3px solid gray !important;
+}
+
+.navbar-brand{
+  font-weight: 700;
+}
+
+/* =======Register============= */
+.register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  flex-direction: column;
+}
