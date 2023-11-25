@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/layout";
-import UserMenu from "../../components/layout/UserMenu";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import axios from "axios";
-const Profile = () => {
+import AdminMenu from "../../components/layout/AdminMenu";
+const UpdateUser = () => {
   // context
   const [auth, setAuth] = useAuth();
   // state
@@ -57,7 +57,7 @@ const Profile = () => {
       <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
-            <UserMenu />
+            <AdminMenu />
           </div>
           <div className="col-md-9">
             <form onSubmit={handleSubmit}>
@@ -136,4 +136,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UpdateUser;

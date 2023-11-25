@@ -16,7 +16,19 @@ function AdminMenu() {
             to="/dashboard/admin/create-product"
             className="list-group-item list-group-item-action"
           >
-            Create Product
+            Create Vehicles
+          </NavLink>
+          <NavLink
+            to="/dashboard/admin/product"
+            className="list-group-item list-group-item-action"
+          >
+            Vehicles
+          </NavLink>
+          <NavLink
+            to="/dashboard/admin/orders"
+            className="list-group-item list-group-item-action"
+          >
+            Orders
           </NavLink>
           <NavLink
             to="/dashboard/admin/users"

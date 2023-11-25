@@ -1,23 +1,73 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./../../components/layout/layout";
-import AdminMenu from "./../../components/layout/AdminMenu";
+import Layout from "../../components/layout/layout";
+import AdminMenu from "../../components/layout/AdminMenu";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const { Option } = Select;
 
-const CreateProduct = () => {
+const UpdateVehicle = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const [initialState, setInitialState] = useState({});
+  const [hasChanged, setHasChanged] = useState(false);
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [model, setModel] = useState("");
   const [quantity, setQuantity] = useState("");
   const [shipping, setShipping] = useState("");
   const [photo, setPhoto] = useState("");
+  const [id, setId] = useState("");
 
+  // getSingle Product
+  const getSingleProduct = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/v1/product/get-product/${params.slug}`
+      );
+      setName(data.vehicles.name);
+      setId(data.vehicles._id);
+      setDescription(data.vehicles.description);
+      setPrice(data.vehicles.price);
+      setQuantity(data.vehicles.quantity);
+      setShipping(data.vehicles.shipping);
+      console.log(data.vehicles.category);
+      setCategory(data.vehicles.category.manufacture);
+      setModel(data.vehicles.category.model);
+      setInitialState({
+        name: data.vehicles.name,
+        description: data.vehicles.description,
+        price: data.vehicles.price,
+        quantity: data.vehicles.quantity,
+        category: data.vehicles.category,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getSingleProduct();
+    // eslint-disable-nextline
+  }, []);
+  useEffect(() => {
+    // Check if any values have changed
+    if (
+      name !== initialState.name ||
+      description !== initialState.description ||
+      price !== initialState.price ||
+      quantity !== initialState.quantity ||
+      category !== initialState.category
+    ) {
+      setHasChanged(true);
+    } else {
+      setHasChanged(false);
+    }
+  }, [name, description, price, quantity, category]);
   //get all category
   const getAllCategory = async () => {
     try {
@@ -27,7 +77,7 @@ const CreateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something wwent wrong in getting catgeory");
+      toast.error("Something went wrong in getting catgeory");
     }
   };
 
@@ -35,27 +85,59 @@ const CreateProduct = () => {
     getAllCategory();
   }, []);
 
-  //create vehicle function
-  const handleCreate = async (e) => {
+  //update vehicle data function
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
+      if (!name || !description || !price || !quantity || !category) {
+        toast.error("All fields are required");
+        return;
+      }
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
       productData.append("price", price);
       productData.append("quantity", quantity);
-      productData.append("photo", photo);
+      photo && productData.append("photo", photo);
       productData.append("category", category);
-      const { data } = axios.post(
-        "/api/v1/product/create-product",
+      const { data } = axios.put(
+        `/api/v1/product/update-product/${id}`,
         productData
       );
       if (data?.success) {
         toast.error(data?.message);
       } else {
-        toast.success("Product Created Successfully");
-        navigate("/dashboard/admin/product");
+        toast.success("Vehicle Updated Successfully");
+        navigate(`/dashboard/admin/product`);
       }
+    } catch (error) {
+      if (error.response.data.error == "Name is Required") {
+        toast.error("Name is Required");
+      }
+      if (error.response.data.error == "Description is Required") {
+        toast.error("Description is Required");
+      }
+      if (error.response.data.error == "Price is Required") {
+        toast.error("Price is Required");
+      }
+      if (error.response.data.error == "Category is Required") {
+        toast.error("Category is Required");
+      }
+      if (error.response.data.error == "Quantity is Required") {
+        toast.error("Quantity is Required");
+      }
+    }
+  };
+  // delete vehicle
+  const handleDelete = async () => {
+    try {
+      let answer = window.prompt("Are you want to delete this product ?");
+      if (!answer) return;
+      const { data } = await axios.delete(
+        `/api/v1/product/delete-product/${id}`
+      );
+      toast.success("Vehicle deleted succesfully");
+      navigate("/dashboard/admin/product");
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
@@ -63,14 +145,14 @@ const CreateProduct = () => {
   };
 
   return (
-    <Layout title={"Dashboard - Create Product"}>
+    <Layout>
       <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
           <div className="col-md-9">
-            <h1>Create Vehicle</h1>
+            <h1>Update Vehicle Data</h1>
             <div className="m-1 w-75">
               <Select
                 bordered={false}
@@ -81,6 +163,7 @@ const CreateProduct = () => {
                 onChange={(value) => {
                   setCategory(value);
                 }}
+                value={category}
               >
                 {categories?.map((c) => (
                   <Option key={c._id} value={c._id}>
@@ -101,10 +184,19 @@ const CreateProduct = () => {
                 </label>
               </div>
               <div className="mb-3">
-                {photo && (
+                {photo ? (
                   <div className="text-center">
                     <img
                       src={URL.createObjectURL(photo)}
+                      alt="product_photo"
+                      height={"200px"}
+                      className="img img-responsive"
+                    />
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <img
+                      src={`/api/v1/product/product-photo/${id}`}
                       alt="product_photo"
                       height={"200px"}
                       className="img img-responsive"
@@ -131,14 +223,25 @@ const CreateProduct = () => {
                 />
               </div>
 
-              <div className="mb-3">
+              <div style={{ position: "relative" }} className="mb-3">
                 <input
                   type="number"
                   value={price}
                   placeholder="write a Price"
                   className="form-control"
                   onChange={(e) => setPrice(e.target.value)}
+                  style={{ paddingLeft: "20px" }}
                 />
+                <span
+                  style={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                >
+                  ₹
+                </span>
               </div>
               <div className="mb-3">
                 <input
@@ -149,24 +252,19 @@ const CreateProduct = () => {
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
+              <div className="mb-3"></div>
               <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Shipping "
-                  size="large"
-                  showSearch
-                  className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
+                <button
+                  onClick={handleUpdate}
+                  className="btn btn-primary"
+                  disabled={!hasChanged}
                 >
-                  <Option value="0">No</Option>
-                  <Option value="1">Yes</Option>
-                </Select>
+                  UPDATE VEHICLE
+                </button>
               </div>
               <div className="mb-3">
-                <button className="btn btn-primary" onClick={handleCreate}>
-                  CREATE PRODUCT
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  DELETE VEHICLE
                 </button>
               </div>
             </div>
@@ -177,4 +275,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateVehicle;

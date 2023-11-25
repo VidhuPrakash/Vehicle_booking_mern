@@ -4,8 +4,8 @@ import Layout from "../../components/layout/layout";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/auth";
-
 import toast from "react-hot-toast";
+
 function Login() {
   const [Email, setEmail] = useState("");
   const [Password, setPass] = useState("");

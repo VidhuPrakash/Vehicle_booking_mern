@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../components/layout/layout";
-import { useAuth } from "../context/auth";
-import axios from "axios";
-import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import Layout from "../../components/layout/layout";
+import { useAuth } from "../../context/auth";
 import { useNavigate } from "react-router-dom";
-function HomePage() {
+import axios from "axios";
+function PaymentSuccess() {
+  useEffect(() => {
+    toast.success("Payment successfull!");
+  }, []);
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
   const [vehicles, setVehicles] = useState([]);
@@ -39,7 +42,7 @@ function HomePage() {
                   <p className="card-text">{v.description}</p>
                   <p classname="card-text">${v.price}</p>
                   <button
-                    className="btn btn-primary"
+                    class="btn btn-primary"
                     onClick={() => navigate(`/product/${v.slug}`)}
                   >
                     See Details
@@ -53,5 +56,4 @@ function HomePage() {
     </Layout>
   );
 }
-
-export default HomePage;
+export default PaymentSuccess;

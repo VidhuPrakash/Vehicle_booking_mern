@@ -4,6 +4,7 @@ import { BsFillCarFrontFill } from "react-icons/bs";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import { Dropdown } from "react-bootstrap";
+import SearchInput from "../Forms/SearchInput";
 
 function Header() {
   const [auth, setAuth] = useAuth();
@@ -34,6 +35,7 @@ function Header() {
           >
             <span className="navbar-toggler-icon" />
           </button>
+          <SearchInput />
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
@@ -90,11 +92,7 @@ function Header() {
                   <li className="nav-item"></li>
                 </>
               )}
-              <li className="nav-item">
-                <NavLink to="/cart" className="nav-link" href="#">
-                  Cart(0)
-                </NavLink>
-              </li>
+              <li className="nav-item"></li>
             </ul>
           </div>
         </div>

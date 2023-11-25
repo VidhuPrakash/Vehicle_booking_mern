@@ -3,8 +3,14 @@ import {
   registerController,
   loginController,
   testController,
+  updateProfileController,
+  getOrderController,
+  getAllOrderController,
+  orderStatusController,
+  getAllUser,
 } from "../controller/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
+import { updateProductController } from "../controller/vehicleController.js";
 
 // routing object
 const router = express.Router();
@@ -25,8 +31,23 @@ router.get("/user-auth", requireSignIn, (req, res) => {
   res.status(200).send({ ok: true });
 });
 //Protected Admin Route
-router.get("/admin-auth", requireSignIn, (req, res) => {
+router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
+// update profile
+router.put("/profile", requireSignIn, updateProfileController);
 
+// order
+router.get("/orders", requireSignIn, getOrderController);
+//all order
+router.get("/all-orders", requireSignIn, isAdmin, getAllOrderController);
+//all status update
+router.put(
+  "/order-status/:orderId",
+  requireSignIn,
+  isAdmin,
+  orderStatusController
+);
+// get all user
+router.get("/all-users", requireSignIn, isAdmin, getAllUser);
 export default router;
