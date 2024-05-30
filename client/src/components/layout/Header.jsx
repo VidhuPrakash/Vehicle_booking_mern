@@ -5,6 +5,7 @@ import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
 import { Dropdown } from "react-bootstrap";
 import SearchInput from "../Forms/SearchInput";
+import "./header.css";
 
 function Header() {
   const [auth, setAuth] = useAuth();
@@ -19,10 +20,10 @@ function Header() {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
         <div className="container-fluid">
-          <Link to="/" className="navbar-brand" href="#">
-            <BsFillCarFrontFill /> !VehiON-online
+          <Link to="/" className="navbar-brand" href="/">
+            <BsFillCarFrontFill /> VehiON
           </Link>
           <button
             className="navbar-toggler"

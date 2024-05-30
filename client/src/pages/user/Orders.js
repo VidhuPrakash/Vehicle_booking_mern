@@ -7,11 +7,31 @@ import moment from "moment";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
+
+  // get Orders
   const getOrders = async () => {
     try {
       const { data } = await axios.get("/api/v1/auth/orders");
 
       setOrders(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // cancel request
+  const cancelOrder = async (orderId) => {
+    try {
+      // Send a PUT request to the server to cancel the order
+      const response = await axios.put(`/api/v1/auth/orders/${orderId}/cancel`);
+
+      // If the request was successful, update the orders state
+      if (response.status === 200) {
+        setOrders(
+          orders.map((order) =>
+            order._id === orderId ? { ...order, status: "Cancelled" } : order
+          )
+        );
+      }
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +49,6 @@ const Orders = () => {
           <div className="col-md-9">
             <h1 className="text-center">All Orders</h1>
             {orders?.map((o, i) => {
-              console.log("data:", o?.vehicle);
               return (
                 <div className="border shadow">
                   <table className="table">
@@ -40,6 +59,14 @@ const Orders = () => {
                         <th scope="col">Vehicle</th>
                         <th scope="col">Date</th>
                         <th scope="col">Payment</th>
+                        <th scope="col">
+                          <div
+                            className="btn btn-danger"
+                            onClick={() => cancelOrder(o._id)}
+                          >
+                            CANCEL
+                          </div>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>

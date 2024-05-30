@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./adminMenu.css";
+
 function AdminMenu() {
   return (
     <>
-      <div className="text-center">
+      <div className="text-center ">
         <div className="list-group">
           <h4>Admin Panel</h4>
           <NavLink

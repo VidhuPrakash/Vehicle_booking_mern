@@ -1,0 +1,23 @@
+.custom-navbar.navbar {
+  background-image: linear-gradient(
+    to right,
+    #333333,
+    #313131
+  ); /* Set background color */
+  color: #333 !important;
+  /* Set text color */
+  border-bottom: 1px solid #ddd !important;
+  /* Add a bottom border */
+}
+.nav-link {
+  display: block;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+  font-size: var(--bs-nav-link-font-size);
+  font-weight: var(--bs-nav-link-font-weight);
+  color: rgb(255 255 255 / 65%);
+  text-decoration: none;
+  background: 0 0;
+  border: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}

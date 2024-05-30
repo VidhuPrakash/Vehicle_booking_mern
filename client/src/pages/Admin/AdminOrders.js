@@ -21,7 +21,6 @@ const AdminOrders = () => {
   const getOrders = async () => {
     try {
       const { data } = await axios.get("/api/v1/auth/all-orders");
-      console.log("data:", data);
       setOrders(data);
     } catch (error) {
       console.log(error);
@@ -42,7 +41,7 @@ const AdminOrders = () => {
   };
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid text-text-white">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />

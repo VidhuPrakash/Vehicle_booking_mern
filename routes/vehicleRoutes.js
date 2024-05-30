@@ -8,6 +8,7 @@ import {
   productPhotoController,
   searchProductController,
   updateProductController,
+  vehicleFilterController,
 } from "../controller/vehicleController.js";
 import formidable from "express-formidable";
 const router = express.Router();
@@ -28,18 +29,22 @@ router.put(
   updateProductController
 );
 
-// get products
+// get vehicles
 router.get("/get-product", getProductsController);
 
-// single product
+// single vehicles
 router.get("/get-product/:slug", getSingleProductsController);
 
 // get photo
 router.get("/product-photo/:pid", productPhotoController);
 
-// delete product
+// delete vehicles
 router.delete("/delete-product/:pid", deleteProductController);
 
-// search product
+// search vehicles
 router.get("/search/:keyword", searchProductController);
+
+// filter vehicles
+router.post("/product-filters", vehicleFilterController);
+
 export default router;

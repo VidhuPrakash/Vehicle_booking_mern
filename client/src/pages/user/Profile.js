@@ -16,13 +16,11 @@ const Profile = () => {
 
   // get user data
   useEffect(() => {
-    console.log(auth?.user);
     const { email, name, phone, address } = auth?.user;
     setName(name);
     setEmail(email);
     setPhone(phone);
     setAddress(address);
-    console.log("address", address);
   }, [auth?.user]);
 
   //   form function
@@ -51,7 +49,6 @@ const Profile = () => {
       toast.error("something went wrong");
     }
   };
-  console.log(address);
   return (
     <Layout>
       <div className="container-fluid m-3 p-3">

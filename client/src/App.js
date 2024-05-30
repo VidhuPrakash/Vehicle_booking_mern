@@ -22,12 +22,15 @@ import VehicleDetails from "./pages/VehicleDetails";
 import PaymentSuccess from "./pages/user/PaymentSuccess";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import UpdateUser from "./pages/Admin/updateUser";
+import PaymentCancelled from "./pages/user/PaymentCancelled";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/success" element={<PaymentSuccess />} />
+        <Route path="/cancelled" element={<PaymentCancelled />} />
+
         <Route path="/product/:slug" element={<VehicleDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoute />}>

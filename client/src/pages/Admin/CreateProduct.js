@@ -64,7 +64,7 @@ const CreateProduct = () => {
 
   return (
     <Layout title={"Dashboard - Create Product"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid text-white">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
@@ -89,7 +89,7 @@ const CreateProduct = () => {
                 ))}
               </Select>
               <div className="mb-3">
-                <label className="btn btn-outline-secondary col-md-12">
+                <label className="btn btn-outline-secondary col-md-11">
                   {photo ? photo.name : "Upload Photo"}
                   <input
                     type="file"

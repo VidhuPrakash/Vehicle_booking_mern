@@ -11,7 +11,6 @@ function Vehicle() {
     try {
       const { data } = await axios.get("/api/v1/product/get-product");
       setVehicle(data.vehicles);
-      console.log(data);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -23,25 +22,21 @@ function Vehicle() {
   }, []);
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid text-white">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
           <div className="col-md-9">
             <h1 className="text-center">Available Vehicle List</h1>
-            <div className="d-flex flex-wrap">
+            <div className=" flex-wrap justify-content-center">
               {vehicles?.map((v) => (
                 <Link
                   className="product-link"
                   key={v._id}
                   to={`/dashboard/admin/product/${v.slug}`}
                 >
-                  <div
-                    className="card m-2"
-                    style={{ width: "18rem" }}
-                    key={v._id}
-                  >
+                  <div className="card m-2" key={v._id}>
                     <img
                       src={`/api/v1/product/product-photo/${v._id}`}
                       className="card-img-top"

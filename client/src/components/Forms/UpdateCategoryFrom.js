@@ -3,7 +3,6 @@ import React from "react";
 function UpdateCategoryFrom({ handleSubmit, value, setValue }) {
   const { updateManu, updateModel } = value;
   const { setUpdateManu, setUpdateModel } = setValue;
-  console.log(value);
   return (
     <>
       <form onSubmit={handleSubmit}>

@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 
 function Search() {
   const [values, setValues] = useSearch();
-  console.log(values.results);
   return (
     <Layout>
       <div className="container">

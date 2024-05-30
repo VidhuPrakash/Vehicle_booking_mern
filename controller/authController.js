@@ -266,3 +266,31 @@ export const getAllUser = async (req, res) => {
     });
   }
 };
+
+// cancel order controller
+export const cancelOrder = async (req, res) => {
+  try {
+    // Get the order id from the request parameters
+    const orderId = req.params.id;
+
+    // Find the order by id and update the status
+    const order = await orderModel.findByIdAndUpdate(
+      orderId,
+      {
+        status: "Cancelled",
+        cancel: true,
+      },
+      { new: true }
+    );
+
+    // If the order was not found, send a 404 response
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.json(order);
+  } catch (error) {
+    // If there was an error, send a 500 response
+    res.status(500).json({ message: error.message });
+  }
+};

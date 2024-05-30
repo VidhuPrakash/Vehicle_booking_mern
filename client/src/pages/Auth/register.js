@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 // import { toast } from "react-toastify";
 import toast from "react-hot-toast";
+import "./style.css";
+
 function Register() {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
@@ -39,10 +41,15 @@ function Register() {
 
   return (
     <Layout>
-      <div className="register">
-        <form onSubmit={handleSubmit}>
+      <div className="register log-main-bg">
+        <form onSubmit={handleSubmit} className="register">
+          <h1 className="text-white mb-5">SIGN UP</h1>
+
           <div className="mb-3">
-            <label htmlFor="exampleInputName" className="form-label">
+            <label
+              htmlFor="exampleInputName"
+              className="form-label custom-label"
+            >
               Name
             </label>
             <input
@@ -55,7 +62,10 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
+            <label
+              htmlFor="exampleInputEmail1"
+              className="form-label custom-label"
+            >
               Email address
             </label>
             <input
@@ -69,7 +79,10 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
+            <label
+              htmlFor="exampleInputPassword1"
+              className="form-label custom-label"
+            >
               Password
             </label>
             <input
@@ -82,7 +95,10 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPhone" className="form-label">
+            <label
+              htmlFor="exampleInputPhone"
+              className="form-label custom-label"
+            >
               Phone
             </label>
             <input
@@ -95,7 +111,10 @@ function Register() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
+            <label
+              htmlFor="exampleInputPassword1"
+              className="form-label custom-label"
+            >
               Address
             </label>
             <input

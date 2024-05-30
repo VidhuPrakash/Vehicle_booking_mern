@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import toast from "react-hot-toast";
+import "./style.css";
 
 function Login() {
   const [Email, setEmail] = useState("");
@@ -39,10 +40,15 @@ function Login() {
   };
   return (
     <Layout>
-      <div className="register">
-        <form onSubmit={handleSubmit}>
+      <div className="register log-main-bg">
+        <form onSubmit={handleSubmit} className="register">
+          <h1 className="text-white mb-5">LOGIN</h1>
+          <p></p>
           <div className="mb-3">
-            <label htmlFor="exampleInputEmail1" className="form-label">
+            <label
+              htmlFor="exampleInputEmail1"
+              className="form-label custom-label"
+            >
               Email address
             </label>
             <input
@@ -56,7 +62,10 @@ function Login() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
+            <label
+              htmlFor="exampleInputPassword1"
+              className="form-label custom-label"
+            >
               Password
             </label>
             <input

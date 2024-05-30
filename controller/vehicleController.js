@@ -48,7 +48,7 @@ export const createProductController = async (req, res) => {
 export const getProductsController = async (req, res) => {
   try {
     const vehicles = await vehicleModel
-      .find({})
+      .find({ category: categoryId })
       .populate("category")
       .select("-photo")
       .limit(12)
@@ -221,6 +221,28 @@ export const searchProductController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error while Updating product",
+      error,
+    });
+  }
+};
+
+// vehicle filter controller
+export const vehicleFilterController = async (req, res) => {
+  try {
+    const { checked, radio } = req.body;
+    let args = {};
+    if (checked.length > 0) args.category = checked;
+    if (radio.length) args.price = { $gte: radio[0], $lte: radio[1] };
+    const products = await vehicleModel.find(args);
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while Filtering vehicle",
       error,
     });
   }

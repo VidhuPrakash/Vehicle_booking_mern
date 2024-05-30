@@ -54,7 +54,7 @@ const UpdateUser = () => {
   console.log(address);
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid text-white">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />

@@ -1,0 +1,18 @@
+.list-group {
+    background-color: #333333;
+    /* Dark background color */
+    color: #ffffff;
+    /* Text color */
+}
+
+.list-group-item {
+    background-color: #333333;
+    /* Dark background color for each item */
+    color: #ffffff;
+    /* Text color for each item */
+}
+
+.list-group-item:hover {
+    background-color: #555555;
+    /* Darker background color on hover */
+}

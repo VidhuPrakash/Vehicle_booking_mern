@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^5.11.2",
+    "assert": "^2.1.0",
     "bcrypt": "^5.1.1",
     "colors": "^1.4.0",
     "concurrently": "^8.2.1",
@@ -26,7 +27,9 @@
     "mongoose": "^7.6.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
+    "os-browserify": "^0.3.0",
     "slugify": "^1.6.6",
-    "stripe": "^14.5.0"
+    "stripe": "^14.5.0",
+    "util": "^0.12.5"
   }
 }

@@ -8,6 +8,8 @@ import categoryRoutes from "./routes/CategoryRoutes.js";
 import vehicleRoutes from "./routes/vehicleRoutes.js";
 import paymentRoutes from "./routes/PaymentRoutes.js";
 import cors from "cors";
+import Stripe from "stripe";
+const stripe = new Stripe(process.env.SECRET_STRIPE_KEY);
 
 //configure env
 dotenv.config();

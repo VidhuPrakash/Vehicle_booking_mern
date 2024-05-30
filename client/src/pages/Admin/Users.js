@@ -13,7 +13,6 @@ const Users = () => {
       try {
         const response = await axios.get("/api/v1/auth/all-users"); // replace with your API endpoint
         setUsers(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching users", error);
       }
@@ -28,7 +27,7 @@ const Users = () => {
 
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid text-white">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />

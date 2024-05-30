@@ -10,6 +10,10 @@ const orderSchema = new mongoose.Schema(
       default: "Not Process",
       enum: ["Not Process", "Process", "Shipped", "Deliverd", "Cancelled"],
     },
+    cancel: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

@@ -3,6 +3,8 @@ import Layout from "../components/layout/layout";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+
 function VehicleDetails() {
   const params = useParams();
   const [vehicles, setVehicles] = useState({});
@@ -12,14 +14,11 @@ function VehicleDetails() {
   }, [params?.slug]);
   // get vehicle
   const getVehicle = async () => {
-    console.log("getVehicle is called");
-
     try {
       const { data } = await axios.get(
         `/api/v1/product/get-product/${params.slug}`
       );
       setVehicles(data?.vehicles);
-      console.log(data.vehicles.category);
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -28,6 +27,8 @@ function VehicleDetails() {
   // payment checkout to stripe
   const checkout = async () => {
     try {
+      const stripe = await loadStripe(process.env.REACT_APP_STRIPE_KEY);
+
       const res = await axios.post("/api/v1/payment/checkout", {
         vehicle: {
           id: vehicles._id,
@@ -36,10 +37,16 @@ function VehicleDetails() {
           category: vehicles.category,
         },
       });
-      const data = await res.data;
+      const session = await res.data;
 
-      // Redirect to the Stripe Checkout page
-      window.location.href = data.url;
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+      if (result.error) {
+        console.log(result.error);
+        toast.error("Something went wrong");
+        return;
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
