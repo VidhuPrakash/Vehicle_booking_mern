@@ -25,8 +25,8 @@ export const paymentController = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/cancelled",
+      success_url: "https://vehicle-booking-mern.onrender.com/success",
+      cancel_url: "https://vehicle-booking-mern.onrender.com/cancelled",
     });
     await vehicleModel.findByIdAndUpdate(id, { $inc: { quantity: -1 } });
 
