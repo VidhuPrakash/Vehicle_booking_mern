@@ -10,6 +10,7 @@ import paymentRoutes from "./routes/PaymentRoutes.js";
 import cors from "cors";
 import path from "path";
 import Stripe from "stripe";
+import { fileURLToPath } from 'url';
 const stripe = new Stripe(process.env.SECRET_STRIPE_KEY);
 
 //configure env
