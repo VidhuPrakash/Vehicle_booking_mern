@@ -15,13 +15,12 @@ function HomePage() {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
-  const [isVisible, setIsVisible] = useState(true);
   // get all categories
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("/api/v1/category/get-category");
-      if (data.success) {
-        setCategories(data.category);
+      if (data?.success) {
+        setCategories(data?.category);
       }
     } catch (error) {
       console.log(error);
@@ -49,14 +48,6 @@ function HomePage() {
     setChecked(all);
   };
 
-  useEffect(() => {
-    getAllCategory();
-    if (!checked.length || !radio.length) getAllVehicle();
-  }, [checked.length, radio.length]);
-
-  useEffect(() => {
-    if (checked.length || radio.length) filterVehicle();
-  }, [checked, radio]);
   // get fillterd products
   const filterVehicle = async () => {
     try {
@@ -64,12 +55,21 @@ function HomePage() {
         checked,
         radio,
       });
-      setVehicles(data?.products);
+      await setVehicles(data?.products);
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (!checked.length || !radio.length) getAllVehicle();
+  }, [checked.length, radio.length]);
 
+  useEffect(() => {
+    if (checked.length || radio.length) filterVehicle();
+  }, [checked, radio]);
+  useEffect(() => {
+    getAllCategory();
+  }, []);
   return (
     <Layout>
       <div className="row mt-0">

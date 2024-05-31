@@ -1,8 +1,8 @@
 import React from "react";
 
 function CategoryForm({ handleSubmit, value, setValue }) {
-  const { manufacture, model } = value;
-  const { setManufacture, setModel } = setValue;
+  const { manufacture } = value;
+  const { setManufacture } = setValue;
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -12,14 +12,6 @@ function CategoryForm({ handleSubmit, value, setValue }) {
             placeholder="Enter Manufacture"
             value={manufacture}
             onChange={(e) => setManufacture(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <input
-            type="text"
-            placeholder="Enter type"
-            value={model}
-            onChange={(e) => setModel(e.target.value)}
           />
         </div>
         <button type="submit" className="btn btn-primary">

@@ -48,7 +48,7 @@ export const createProductController = async (req, res) => {
 export const getProductsController = async (req, res) => {
   try {
     const vehicles = await vehicleModel
-      .find({ category: categoryId })
+      .find({})
       .populate("category")
       .select("-photo")
       .limit(12)

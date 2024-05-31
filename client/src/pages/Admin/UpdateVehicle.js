@@ -35,7 +35,7 @@ const UpdateVehicle = () => {
       setPrice(data.vehicles.price);
       setQuantity(data.vehicles.quantity);
       setShipping(data.vehicles.shipping);
-      console.log(data.vehicles.category);
+
       setCategory(data.vehicles.category.manufacture);
       setModel(data.vehicles.category.model);
       setInitialState({
@@ -155,7 +155,7 @@ const UpdateVehicle = () => {
             <h1>Update Vehicle Data</h1>
             <div className="m-1 w-75">
               <Select
-                bordered={false}
+                variant={false}
                 placeholder="Select a category"
                 size="large"
                 showSearch
@@ -172,7 +172,7 @@ const UpdateVehicle = () => {
                 ))}
               </Select>
               <div className="mb-3">
-                <label className="btn btn-outline-secondary col-md-12">
+                <label className="btn btn-outline-secondary col-md-11">
                   {photo ? photo.name : "Upload Photo"}
                   <input
                     type="file"

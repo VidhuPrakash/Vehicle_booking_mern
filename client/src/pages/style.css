@@ -31,6 +31,7 @@
 .top-image {
   margin-top: 2%;
   margin-right: 1%;
+  width: auto;
   height: 50%;
   background-color: #000000;
   color: #ffffff;

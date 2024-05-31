@@ -2,11 +2,9 @@ import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
 export const createCategoryController = async (req, res) => {
   try {
-    const { manufacture, model } = req.body;
-    if (!manufacture || !model) {
-      return res
-        .status(401)
-        .send({ message: "manufacture and model is required" });
+    const { manufacture } = req.body;
+    if (!manufacture) {
+      return res.status(401).send({ message: "manufacture is required" });
     }
     const existingCategory = await categoryModel.findOne({ manufacture });
     if (existingCategory) {
@@ -17,7 +15,6 @@ export const createCategoryController = async (req, res) => {
     }
     const category = await new categoryModel({
       manufacture,
-      model,
       slug: slugify(manufacture),
     }).save();
     res.status(201).send({
@@ -38,11 +35,11 @@ export const createCategoryController = async (req, res) => {
 //update category
 export const updateCategoryController = async (req, res) => {
   try {
-    const { manufacture, model } = req.body;
+    const { manufacture } = req.body;
     const { id } = req.params;
     const category = await categoryModel.findByIdAndUpdate(
       id,
-      { manufacture, model, slug: slugify(manufacture) },
+      { manufacture, slug: slugify(manufacture) },
       { new: true }
     );
     res.status(200).send({
